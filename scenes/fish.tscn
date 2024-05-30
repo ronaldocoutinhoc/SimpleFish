@@ -1,0 +1,181 @@
+[gd_scene load_steps=19 format=3 uid="uid://d1o6y2g77c5qu"]
+
+[ext_resource type="Texture2D" uid="uid://b66a7loox1jgt" path="res://assets/sprites/3 Objects/Catch/4.png" id="1_exg0w"]
+[ext_resource type="Script" path="res://scripts/fish.gd" id="1_wxrj2"]
+[ext_resource type="AudioStream" uid="uid://c302rslkpacc6" path="res://assets/SFX/FishHit.wav" id="3_guvcw"]
+[ext_resource type="Texture2D" uid="uid://sb17wbotm7do" path="res://assets/sprites/3 Objects/Catch/1.png" id="3_km2cc"]
+[ext_resource type="Texture2D" uid="uid://clry0ruyj43bt" path="res://assets/sprites/3 Objects/Catch/3.png" id="4_3j77f"]
+[ext_resource type="Texture2D" uid="uid://crd8bpu1gtf82" path="res://assets/sprites/3 Objects/Catch/7.png" id="5_oql8c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrxdo"]
+atlas = ExtResource("1_exg0w")
+region = Rect2(0, 0, 26, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srm1d"]
+atlas = ExtResource("1_exg0w")
+region = Rect2(26, 0, 26, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpt8o"]
+atlas = ExtResource("3_km2cc")
+region = Rect2(0, 0, 12, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25m5g"]
+atlas = ExtResource("3_km2cc")
+region = Rect2(12, 0, 12, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdxw2"]
+atlas = ExtResource("4_3j77f")
+region = Rect2(0, 0, 20, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ian0i"]
+atlas = ExtResource("4_3j77f")
+region = Rect2(20, 0, 20, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3eja"]
+atlas = ExtResource("5_oql8c")
+region = Rect2(0, 0, 30, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjsve"]
+atlas = ExtResource("5_oql8c")
+region = Rect2(30, 0, 30, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wuwd6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrxdo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srm1d")
+}],
+"loop": true,
+"name": &"Fish1",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpt8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25m5g")
+}],
+"loop": true,
+"name": &"Fish2",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdxw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ian0i")
+}],
+"loop": true,
+"name": &"Fish3",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3eja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjsve")
+}],
+"loop": true,
+"name": &"Fish4",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_gcu38"]
+resource_name = "Catch"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(25, 20), Vector2(75, -30), Vector2(0, -50)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CatchSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_7x3vm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CatchSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v8n7t"]
+_data = {
+"Catch": SubResource("Animation_gcu38"),
+"RESET": SubResource("Animation_7x3vm")
+}
+
+[node name="Fish" type="Node2D"]
+position = Vector2(25, 20)
+script = ExtResource("1_wxrj2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wuwd6")
+animation = &"Fish1"
+autoplay = "Fish1"
+frame_progress = 0.931649
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v8n7t")
+}
+
+[node name="CatchSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 50)
+stream = ExtResource("3_guvcw")
